@@ -1,6 +1,8 @@
 from requests import put, get, post
 import json
 
+TIMEOUT = 15
+
 
 class Pix:
     def __init__(self, sandbox=True, credentials=None):
@@ -37,11 +39,11 @@ class Pix:
         response = put("{}pix/{}/cobqrcode/{}?".format(self.url_base, self.versao_pix, txid),
                        params={
                            'gw-dev-app-key': self.developer_application_key_pix
-                       }, headers=self.headers_pix, data=json.dumps(data), verify=False).json()
+                       }, headers=self.headers_pix, data=json.dumps(data), verify=False, timeout=TIMEOUT).json()
         return response
 
     def read_cob(self, data):
         response = get("{}pix/{}/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
             'gw-dev-app-key': self.developer_application_key_pix
-        }, headers=self.headers_pix).json()
+        }, headers=self.headers_pix, verify=False, timeout=TIMEOUT).json()
         return response

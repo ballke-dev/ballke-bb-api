@@ -1,6 +1,8 @@
 from requests import get, post
 import json
 
+TIMEOUT = 15
+
 
 class Cobranca:
     def __init__(self, sandbox=True, credentials=None):
@@ -36,7 +38,7 @@ class Cobranca:
         response = post("{}cobrancas/{}/boletos?".format(self.url_base, self.versao_cob),
                         params={
                             'gw-dev-app-key': self.developer_application_key_cobranca
-                        }, data=json.dumps(data), headers=self.headers_cobranca, verify=False).json()
+                        }, data=json.dumps(data), headers=self.headers_cobranca, verify=False, timeout=TIMEOUT).json()
         return response
 
     def read_billet(self, data):
@@ -44,7 +46,7 @@ class Cobranca:
                        params={
                            'gw-dev-app-key': self.developer_application_key_cobranca,
                            'numeroConvenio': data['numeroConvenio'],
-                       }, headers=self.headers_cobranca, verify=False).json()
+                       }, headers=self.headers_cobranca, verify=False, timeout=TIMEOUT).json()
         return response
 
     def read_billet_list(self, data):
@@ -56,5 +58,5 @@ class Cobranca:
             'codigoEstadoTituloCobranca': data['estado_titulo'],
             'dataInicioVencimento': data['inicio_vencimento'],
             'dataFimVencimento': data['fim_vencimento']
-        }, headers=self.headers_cobranca, verify=False).json()
+        }, headers=self.headers_cobranca, verify=False, timeout=TIMEOUT).json()
         return response
