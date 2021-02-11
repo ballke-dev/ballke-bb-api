@@ -861,6 +861,6 @@ class BoletoPDF(object):
 
 def load_image(logo_image):
     """Load Bank Image"""
-    pyboleto_dir = os.path.abspath(__file__)
+    pyboleto_dir = os.path.dirname(os.path.abspath(__file__))
     image_path = os.path.join(pyboleto_dir, 'assets/img/', logo_image)
     return image_path
