@@ -139,7 +139,17 @@ def generate_billet_pix():
     else:
         print(response)
 ```
+## Gerar pdf
 
+Consiste basicamente em chamar a função de geração informando data e o response da criação de boleto que retorna o objeto pdf
+<br>
+Exemplo:
+```
+from apiBB.layout.processor import get_pdf
+
+img = get_pdf(data, response)
+
+```
 ## Read cobranca
 
 Método para consulta de boletos já registrados, aqui é feito a consulta em um único boleto por vez onde o **data**  precisa estar formatado da seguinte forma.
