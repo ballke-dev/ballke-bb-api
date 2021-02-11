@@ -31,7 +31,7 @@ class BoletoBB(BoletoData):
     agencia_cedente = CustomProperty('agencia_cedente', 4)
     conta_cedente = CustomProperty('conta_cedente', 8)
 
-    def __init__(self, format_convenio, format_nnumero):
+    def __init__(self, format_convenio, format_nnumero, path_logo):
         '''
             Construtor para boleto do Banco deo Brasil
             Args:
@@ -43,7 +43,7 @@ class BoletoBB(BoletoData):
 
         self.codigo_banco = "001"
         self.carteira = 17
-        self.logo_image = "logo_bb.jpg"
+        self.logo_image = path_logo
 
         # Size of convenio 4, 6, 7 or 8
         self.format_convenio = format_convenio

@@ -3,8 +3,8 @@ from apiBB.layout.bancodobrasil import BoletoBB
 import datetime
 
 
-def get_data_bb(data, boleto):
-    d = BoletoBB(7, 2)
+def get_data_bb(data, boleto, path_logo):
+    d = BoletoBB(7, 2, path_logo)
     d.nosso_numero = data['numeroTituloCliente'][-7:]
     d.numero_documento = data['numeroTituloBeneficiario']
     d.convenio = data['numeroConvenio']
