@@ -48,5 +48,4 @@ def get_pdf(data, boleto, path_logo):
     boleto_PDF = BoletoPDF('boleto-bb-{}.pdf'.format(boleto['numero']))
     boleto_PDF.drawBoleto(get_data_bb(data, boleto, path_logo))
     boleto_PDF.nextPage()
-    boleto_PDF.save()
     return boleto_PDF
