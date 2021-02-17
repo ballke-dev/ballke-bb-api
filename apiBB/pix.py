@@ -43,7 +43,7 @@ class Pix:
         return response
 
     def read_cob(self, data):
-        response = get("{}pix/{}/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
+        response = get("{}pix/{}/cob/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
             'gw-dev-app-key': self.developer_application_key_pix
         }, headers=self.headers_pix, verify=False, timeout=TIMEOUT).json()
         return response
