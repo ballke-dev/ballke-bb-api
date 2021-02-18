@@ -9,7 +9,7 @@ class Pix:
         self.sandbox = sandbox
         self.credentials = credentials
         self.versao_pix = self.credentials['versao_pix']
-        self.url_base = "https://api.sandbox.bb.com.br/" if self.sandbox else "https://api.bb.com.br/"
+        self.url_base = "https://api.hm.bb.com.br/" if self.sandbox else "https://api.bb.com.br/"
         self.url_token = 'https://oauth.sandbox.bb.com.br/oauth/token' if sandbox \
             else "https://oauth.bb.com.br/oauth/token"
         self.token_pix = self.get_token_pix().get("access_token")
@@ -45,5 +45,5 @@ class Pix:
     def read_cob(self, data):
         response = get("{}pix/{}/cob/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
             'gw-dev-app-key': self.developer_application_key_pix
-        }, headers=self.headers_pix, verify=False, timeout=TIMEOUT).json()
-        return response
+        }, headers=self.headers_pix, verify=False, timeout=TIMEOUT)
+        return json.loads(json.dumps(response.text))
