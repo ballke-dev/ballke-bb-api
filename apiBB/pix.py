@@ -46,4 +46,8 @@ class Pix:
         response = get("{}pix/{}/cob/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
             'gw-dev-app-key': self.developer_application_key_pix
         }, headers=self.headers_pix, verify=False, timeout=TIMEOUT)
-        return json.loads(json.dumps(response.text))
+        s = response.text.replace('\t', '')
+        s = s.replace('\n', '')
+        s = s.replace(',}', '}')
+        s = s.replace(',]', ']')
+        return json.loads(s)
