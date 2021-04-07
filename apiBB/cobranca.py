@@ -31,14 +31,14 @@ class Cobranca:
             self.credentials['cobranca_production']['basic'],
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        response = post(self.url_token, data=data_token_cobranca, headers=headers, verify=False).json()
+        response = post(self.url_token, data=data_token_cobranca, headers=headers).json()
         return response
 
     def register_billet(self, data):
         response = post("{}cobrancas/{}/boletos?".format(self.url_base, self.versao_cob),
                         params={
                             'gw-dev-app-key': self.developer_application_key_cobranca
-                        }, data=json.dumps(data), headers=self.headers_cobranca, verify=False, timeout=TIMEOUT).json()
+                        }, data=json.dumps(data), headers=self.headers_cobranca, timeout=TIMEOUT).json()
         return response
 
     def read_billet(self, data):
@@ -46,7 +46,7 @@ class Cobranca:
                        params={
                            'gw-dev-app-key': self.developer_application_key_cobranca,
                            'numeroConvenio': data['numeroConvenio'],
-                       }, headers=self.headers_cobranca, verify=False, timeout=TIMEOUT).json()
+                       }, headers=self.headers_cobranca, timeout=TIMEOUT).json()
         return response
 
     def read_billet_list(self, data):
@@ -58,5 +58,5 @@ class Cobranca:
             'codigoEstadoTituloCobranca': data['estado_titulo'],
             'dataInicioVencimento': data['inicio_vencimento'],
             'dataFimVencimento': data['fim_vencimento']
-        }, headers=self.headers_cobranca, verify=False, timeout=TIMEOUT).json()
+        }, headers=self.headers_cobranca, timeout=TIMEOUT).json()
         return response
