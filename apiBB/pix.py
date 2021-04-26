@@ -30,7 +30,7 @@ class Pix:
             self.credentials['pix_production']['basic'],
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        response = post(self.url_token, data=data_token_pix, headers=headers).json()
+        response = post(self.url_token, data=data_token_pix, headers=headers, verify=False).json()
         return response
 
     def create_cob(self, data):
@@ -39,13 +39,13 @@ class Pix:
         response = put("{}pix/{}/cobqrcode/{}?".format(self.url_base, self.versao_pix, txid),
                        params={
                            'gw-dev-app-key': self.developer_application_key_pix
-                       }, headers=self.headers_pix, data=json.dumps(data), timeout=TIMEOUT).json()
+                       }, headers=self.headers_pix, data=json.dumps(data), timeout=TIMEOUT, verify=False).json()
         return response
 
     def read_cob(self, data):
         response = get("{}pix/{}/cob/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
             'gw-dev-app-key': self.developer_application_key_pix
-        }, headers=self.headers_pix, timeout=TIMEOUT)
+        }, headers=self.headers_pix, timeout=TIMEOUT, verify=False)
         s = response.text.replace('\t', '')
         s = s.replace('\n', '')
         s = s.replace(',}', '}')
