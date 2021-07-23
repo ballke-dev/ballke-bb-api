@@ -30,7 +30,7 @@ class Pix:
             self.credentials['pix_production']['basic'],
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        response = post(self.url_token, data=data_token_pix, headers=headers, verify=False).json()
+        response = post(self.url_token, data=data_token_pix, headers=headers, timeout=TIMEOUT, verify=False).json()
         return response
 
     def create_cob(self, data):

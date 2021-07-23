@@ -31,7 +31,7 @@ class Cobranca:
             self.credentials['cobranca_production']['basic'],
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        response = post(self.url_token, data=data_token_cobranca, headers=headers, verify=False).json()
+        response = post(self.url_token, data=data_token_cobranca, headers=headers, timeout=TIMEOUT, verify=False).json()
         return response
 
     def register_billet(self, data):
