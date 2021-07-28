@@ -147,6 +147,41 @@ Exemplo:
 ```
 from apiBB.layout.processor import get_pdf
 
+data = {
+   "numeroTituloCliente":"",
+   "numeroTituloBeneficiario":"",
+   "numeroConvenio":"",
+   "numeroCarteira":"",
+   "beneficiarioFinal":{
+      "nome":"",
+      "numeroInscricao":"",
+      "logradouro":"",
+      "bairro":"",
+      "cidade":"",
+      "uf":"",
+      "cep":"",
+      "agencia":"",
+      "contaCorrente":""
+   },
+   "dataVencimento":"",
+   "dataEmissao":"",
+   "jurosMora":{
+      "valor":""
+   },
+   "multa":{
+      "valor":""
+   },
+   "valorOriginal":"",
+   "pagador":{
+      "nome":"",
+      "endereco":"",
+      "bairro":"",
+      "cidade":"",
+      "uf":"",
+      "cep":""
+   }
+}
+
 img = get_pdf(data, response)
 
 ```

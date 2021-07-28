@@ -3,9 +3,9 @@ from apiBB.layout.bancodobrasil import BoletoBB
 import datetime
 
 
-def get_data_bb(data, boleto, path_logo):
+def get_data_bb(data, path_logo):
     d = BoletoBB(7, 2, path_logo)
-    d.nosso_numero = data['numeroTituloCliente'][-7:]
+    d.nosso_numero = data['numeroTituloCliente']
     d.numero_documento = data['numeroTituloBeneficiario']
     d.convenio = data['numeroConvenio']
     d.especie_documento = 'DM'
@@ -13,13 +13,13 @@ def get_data_bb(data, boleto, path_logo):
     d.carteira = str(data['numeroCarteira'])
     d.cedente = data['beneficiarioFinal']['nome']
     d.cedente_documento = str(data['beneficiarioFinal']['numeroInscricao'])
-    d.cedente_endereco = "{}, {} - {} - {} - CEP: {}".format(boleto['beneficiario']['logradouro'],
-                                                             boleto['beneficiario']['bairro'],
-                                                             boleto['beneficiario']['cidade'],
-                                                             boleto['beneficiario']['uf'],
-                                                             boleto['beneficiario']['cep'])
-    d.agencia_cedente = str(boleto['beneficiario']['agencia'])
-    d.conta_cedente = str(boleto['beneficiario']['contaCorrente'])
+    d.cedente_endereco = "{}, {} - {} - {} - CEP: {}".format(data['beneficiario']['logradouro'],
+                                                             data['beneficiario']['bairro'],
+                                                             data['beneficiario']['cidade'],
+                                                             data['beneficiario']['uf'],
+                                                             data['beneficiario']['cep'])
+    d.agencia_cedente = str(data['beneficiario']['agencia'])
+    d.conta_cedente = str(data['beneficiario']['contaCorrente'])
 
     d.data_vencimento = datetime.datetime.strptime(data['dataVencimento'], "%d.%m.%Y").date()
     d.data_documento = datetime.datetime.strptime(data['dataEmissao'], "%d.%m.%Y").date()
@@ -44,8 +44,8 @@ def get_data_bb(data, boleto, path_logo):
     return d
 
 
-def get_pdf(data, boleto, path_logo):
-    boleto_PDF = BoletoPDF('boleto-bb-{}.pdf'.format(boleto['numero']))
-    boleto_PDF.drawBoleto(get_data_bb(data, boleto, path_logo))
+def get_pdf(data, path_logo):
+    boleto_PDF = BoletoPDF('boleto-bb-{}.pdf'.format(data['numeroTituloCliente']))
+    boleto_PDF.drawBoleto(get_data_bb(data, path_logo))
     boleto_PDF.nextPage()
     return boleto_PDF
