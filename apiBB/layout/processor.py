@@ -11,8 +11,8 @@ def get_data_bb(data, path_logo):
     d.especie_documento = 'DM'
 
     d.carteira = str(data['numeroCarteira'])
-    d.cedente = data['beneficiarioFinal']['nome']
-    d.cedente_documento = str(data['beneficiarioFinal']['numeroInscricao'])
+    d.cedente = data['beneficiario']['nome']
+    d.cedente_documento = str(data['beneficiario']['numeroInscricao'])
     d.cedente_endereco = "{}, {} - {} - {} - CEP: {}".format(data['beneficiario']['logradouro'],
                                                              data['beneficiario']['bairro'],
                                                              data['beneficiario']['cidade'],
