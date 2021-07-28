@@ -28,7 +28,7 @@ def get_data_bb(data, path_logo):
     d.instrucoes = [
         "COBRAR JUROS DE R$ {} POR DIA DE ATRASO".format(data['jurosMora']['valor']) if 'jurosMora' in data else "",
         "COBRAR MULTA DE R$ {} A PARTIR DE {}".format(data['multa']['valor'], data['multa']['data']) if 'multa' in data else "",
-        "PAGAVEL EM QUALQUER BANCO"
+        "".format(data['instrucoes'])
     ]
     d.demonstrativo = [
         # "- Serviço Teste R$ 5,00",
