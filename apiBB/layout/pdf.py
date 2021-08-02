@@ -859,8 +859,8 @@ class BoletoPDF(object):
         bc.drawOn(self.pdf_canvas, x, y)
 
 
-def load_image(logo_image):
+def load_image():
     """Load Bank Image"""
     pyboleto_dir = os.path.dirname(os.path.abspath(__file__))
-    image_path = os.path.join(pyboleto_dir, 'assets/img/', logo_image)
+    image_path = os.path.join(pyboleto_dir, 'media/logo_bb.png')
     return image_path
