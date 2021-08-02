@@ -1,10 +1,11 @@
 from apiBB.layout.pdf import BoletoPDF
 from apiBB.layout.bancodobrasil import BoletoBB
 import datetime
+import os
 
 
-def get_data_bb(data):
-    d = BoletoBB(7, 2)
+def get_data_bb(data, path_logo):
+    d = BoletoBB(7, 2, path_logo)
     d.nosso_numero = data['numeroTituloCliente']
     d.numero_documento = data['numeroTituloBeneficiario']
     d.convenio = data['numeroConvenio']
@@ -49,6 +50,6 @@ def get_data_bb(data):
 
 def get_pdf(data):
     boleto_PDF = BoletoPDF('boleto-bb-{}.pdf'.format(data['numeroTituloCliente']))
-    boleto_PDF.drawBoleto(get_data_bb(data))
+    boleto_PDF.drawBoleto(get_data_bb(data, os.path.abspath('layout/media/logo_bb.png')))
     boleto_PDF.nextPage()
     return boleto_PDF
