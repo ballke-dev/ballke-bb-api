@@ -1,6 +1,7 @@
 from apiBB.layout.pdf import BoletoPDF
 from apiBB.layout.bancodobrasil import BoletoBB
 import datetime
+import pathlib
 
 
 def get_data_bb(data, path_logo):
@@ -47,8 +48,8 @@ def get_data_bb(data, path_logo):
     return d
 
 
-def get_pdf(data, path_logo):
+def get_pdf(data):
     boleto_PDF = BoletoPDF('boleto-bb-{}.pdf'.format(data['numeroTituloCliente']))
-    boleto_PDF.drawBoleto(get_data_bb(data, path_logo))
+    boleto_PDF.drawBoleto(get_data_bb(data, pathlib.Path('layout/media/logo_bb.png').resolve()))
     boleto_PDF.nextPage()
     return boleto_PDF
