@@ -69,3 +69,19 @@ class Cobranca:
                             'gw-dev-app-key': self.developer_application_key_cobranca
                         }, data=json.dumps(data), headers=self.headers_cobranca, timeout=TIMEOUT, verify=False).json()
         return response
+
+    def read_billet_passive(self, data):
+        response = get("{}cobrancas/{}/boletos?".format(self.url_base, self.versao_cob),
+                       params={
+                           'gw-dev-app-key': self.developer_application_key_cobranca,
+                           'agenciaBeneficiario': data['agencia'],
+                           'contaBeneficiario': data['conta'],
+                           'variacaoCarteiraConvenio': data['variacaoCarteira'],
+                           'indicadorSituacao': 'B',
+                           'codigoEstadoTituloCobranca': data['codigoEstadoTitulo'],
+                           'dataInicioMovimento': data['dataFiltro'],
+                       }, headers=self.headers_cobranca, timeout=TIMEOUT, verify=False)
+        try:
+            return response.json()
+        except:
+            return response
