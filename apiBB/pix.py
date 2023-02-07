@@ -5,7 +5,8 @@ TIMEOUT = 15
 
 
 class Pix:
-    def __init__(self, sandbox=True, credentials=None):
+    def __init__(self, sandbox=True, credentials=None, timeout=TIMEOUT):
+        self.timeout = timeout
         self.sandbox = sandbox
         self.credentials = credentials
         self.versao_pix = self.credentials['versao_pix']
@@ -30,7 +31,7 @@ class Pix:
             self.credentials['pix_production']['basic'],
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        response = post(self.url_token, data=data_token_pix, headers=headers, timeout=TIMEOUT, verify=False).json()
+        response = post(self.url_token, data=data_token_pix, headers=headers, timeout=self.timeout, verify=False).json()
         return response
 
     def create_cob(self, data):
@@ -39,13 +40,13 @@ class Pix:
         response = put("{}pix/{}/cobqrcode/{}?".format(self.url_base, self.versao_pix, txid),
                        params={
                            'gw-dev-app-key': self.developer_application_key_pix
-                       }, headers=self.headers_pix, data=json.dumps(data), timeout=TIMEOUT, verify=False).json()
+                       }, headers=self.headers_pix, data=json.dumps(data), timeout=self.timeout, verify=False).json()
         return response
 
     def read_cob(self, data):
         response = get("{}pix/{}/cob/{}?".format(self.url_base, self.versao_pix, data['txid']), params={
             'gw-dev-app-key': self.developer_application_key_pix
-        }, headers=self.headers_pix, timeout=TIMEOUT, verify=False)
+        }, headers=self.headers_pix, timeout=self.timeout, verify=False)
         s = response.text.replace('\t', '')
         s = s.replace('\n', '')
         s = s.replace(',}', '}')

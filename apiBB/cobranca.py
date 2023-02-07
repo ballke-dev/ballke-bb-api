@@ -5,7 +5,8 @@ TIMEOUT = 15
 
 
 class Cobranca:
-    def __init__(self, sandbox=True, credentials=None):
+    def __init__(self, sandbox=True, credentials=None, timeout=TIMEOUT):
+        self.timeout = timeout
         self.credentials = credentials
         self.sandbox = sandbox
         self.url_token = 'https://oauth.sandbox.bb.com.br/oauth/token' if sandbox \
@@ -31,14 +32,14 @@ class Cobranca:
             self.credentials['cobranca_production']['basic'],
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        response = post(self.url_token, data=data_token_cobranca, headers=headers, timeout=TIMEOUT, verify=False).json()
+        response = post(self.url_token, data=data_token_cobranca, headers=headers, timeout=self.timeout, verify=False).json()
         return response
 
     def register_billet(self, data):
         response = post("{}cobrancas/{}/boletos?".format(self.url_base, self.versao_cob),
                         params={
                             'gw-dev-app-key': self.developer_application_key_cobranca
-                        }, data=json.dumps(data), headers=self.headers_cobranca, timeout=TIMEOUT, verify=False).json()
+                        }, data=json.dumps(data), headers=self.headers_cobranca, timeout=self.timeout, verify=False).json()
         return response
 
     def read_billet(self, data):
@@ -46,7 +47,7 @@ class Cobranca:
                        params={
                            'gw-dev-app-key': self.developer_application_key_cobranca,
                            'numeroConvenio': data['numeroConvenio'],
-                       }, headers=self.headers_cobranca, timeout=TIMEOUT, verify=False).json()
+                       }, headers=self.headers_cobranca, timeout=self.timeout, verify=False).json()
         return response
 
     def read_billet_list(self, data):
@@ -58,7 +59,7 @@ class Cobranca:
             'codigoEstadoTituloCobranca': data['estado_titulo'],
             'dataInicioVencimento': data['inicio_vencimento'],
             'dataFimVencimento': data['fim_vencimento']
-        }, headers=self.headers_cobranca, timeout=TIMEOUT, verify=False).json()
+        }, headers=self.headers_cobranca, timeout=self.timeout, verify=False).json()
         return response
 
     def cancel_billet(self, data):
@@ -67,7 +68,7 @@ class Cobranca:
         response = post("{}cobrancas/{}/boletos/{}/baixar".format(self.url_base, self.versao_cob, billet_id),
                         params={
                             'gw-dev-app-key': self.developer_application_key_cobranca
-                        }, data=json.dumps(data), headers=self.headers_cobranca, timeout=TIMEOUT, verify=False).json()
+                        }, data=json.dumps(data), headers=self.headers_cobranca, timeout=self.timeout, verify=False).json()
         return response
 
     def read_billet_passive(self, data):
@@ -80,7 +81,7 @@ class Cobranca:
                            'indicadorSituacao': 'B',
                            'codigoEstadoTituloCobranca': data['codigoEstadoTitulo'],
                            'dataInicioMovimento': data['dataFiltro'],
-                       }, headers=self.headers_cobranca, timeout=TIMEOUT, verify=False)
+                       }, headers=self.headers_cobranca, timeout=self.timeout, verify=False)
         try:
             return response.json()
         except:
