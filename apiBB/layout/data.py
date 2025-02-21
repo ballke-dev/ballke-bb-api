@@ -7,7 +7,7 @@ class BoletoException(Exception):
     pass
 
 
-_EPOCH = datetime.date(2025, 2, 21)
+_EPOCH = datetime.date(2025, 2, 22)
 #_EPOCH = datetime.date(1997, 10, 7)
 
 
