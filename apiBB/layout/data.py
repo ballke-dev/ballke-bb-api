@@ -7,7 +7,7 @@ class BoletoException(Exception):
     pass
 
 
-_EPOCH = datetime.date(2025, 2, 20)
+_EPOCH = datetime.date(2025, 2, 21)
 #_EPOCH = datetime.date(1997, 10, 7)
 
 
@@ -182,7 +182,7 @@ class BoletoData(object):
                      value,
                      len(value)))
 
-        due_date_days = (self.data_vencimento - _EPOCH).days
+        due_date_days = (self.data_vencimento - _EPOCH).days + 1000
         if not (9999 >= due_date_days >= 0):
             raise TypeError(
                 "Invalid date, must be between 1997/07/01 and "
